@@ -1,0 +1,17 @@
+{
+    "name": "ymhuang0808/behat-quick-start",
+    "type": "project",
+    "require": {
+        "PHP": ">=5.3"
+    },
+    "require-dev": {
+        "behat/behat": "^3.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "YMHuang",
+            "email": "ym.huang0808@gmail.com"
+        }
+    ]
+}
