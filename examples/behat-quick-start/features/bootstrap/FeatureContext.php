@@ -23,7 +23,7 @@ class FeatureContext implements Context
     public function __construct()
     {
         $this->shelf = new Shelf();
-        $this->basket = new Basket();
+        $this->basket = new Basket($this->shelf);
     }
 
     /**
