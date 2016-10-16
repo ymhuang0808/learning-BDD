@@ -48,8 +48,8 @@ class FeatureContext implements Context
      */
     public function thatTheEventRegistrationPeriodIsInTo($startDatetime, $endDatetime)
     {
-        $this->event->setRegistrationStartDatetime($startDatetime);
-        $this->event->setRegistrationEndDatetime($endDatetime);
+        $this->event->setRegistrationStartDatetime(new DateTime($startDatetime, new DateTimeZone("Asia/Taipei")));
+        $this->event->setRegistrationEndDatetime(new DateTime($endDatetime, new DateTimeZone("Asia/Taipei")));
     }
 
     /**
@@ -114,5 +114,23 @@ class FeatureContext implements Context
     public function theAttendeeListContainsMyName($name)
     {
         PHPUnit_Framework_Assert::assertContains($name, $this->event->getAttendees());
+    }
+
+
+    /**
+     * @Then the attendee list does not contains my name :name
+     */
+    public function theAttendeeListDoesNotContainsMyName($name)
+    {
+        PHPUnit_Framework_Assert::assertNotContains($name, $this->event->getAttendees());
+    }
+
+    /**
+     * @Given that the current time is :time
+     */
+    public function thatTheCurrentTimeIs($time)
+    {
+        $dateTime = new DateTime($time, new DateTimeZone("Asia/Taipei"));
+        $this->event->setCurrentDateTime($dateTime);
     }
 }

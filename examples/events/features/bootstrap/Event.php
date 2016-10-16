@@ -15,11 +15,19 @@ class Event
     private $registrationStartDatetime;
     private $registrationEndDatetime;
 
+    private $currentDatetime;
+
     private $address;
 
     private $maxAttendees;
 
     private $attendees = [];
+
+
+    public function __construct()
+    {
+       $this->currentDatetime = new DateTime("now", new DateTimeZone("Asia/Taipei"));
+    }
 
     /**
      * @param mixed $name
@@ -95,11 +103,31 @@ class Event
 
     public function register(User $user)
     {
+        if ($this->getAttendeesNumber() >= $this->maxAttendees || !$this->isBetweenRegistrationPeriod()) {
+            return false;
+        }
+
         $this->attendees[] = $user->getName();
+
+        return true;
     }
 
     public function getAttendeesNumber()
     {
         return count($this->attendees);
+    }
+
+    /**
+     * @param mixed $currentDatetime
+     */
+    public function setCurrentDatetime(DateTime $currentDatetime)
+    {
+        $this->currentDatetime = $currentDatetime;
+    }
+
+    private function isBetweenRegistrationPeriod()
+    {
+        return $this->registrationStartDatetime < $this->currentDatetime  &&
+            $this->currentDatetime < $this->registrationEndDatetime;
     }
 }
